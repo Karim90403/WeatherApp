@@ -5,7 +5,3 @@
 <script>
 
 </script>
-
-<style>
-
-</style>
