@@ -67,7 +67,11 @@ var app = new Vue({
       cityName: '--',
       description: '--',
       temperature: '--˚',
-      forecasts: [],
+      forecasts: [{
+            time: '12',
+            icon: '13',
+            value: '12'
+        }],
       details: {
         feelslike: 0,
         humidity: 0,
