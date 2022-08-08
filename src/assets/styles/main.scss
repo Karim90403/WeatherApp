@@ -15,7 +15,22 @@ html {
 
 .weather {
     width: 100%;
-    min-height: 100vh;
+}
+
+html[data-theme="day"]{
+    background: #53a6cb;
+}
+
+html[data-theme="night"]{
+    background: #243f4d;
+}
+
+html[data-theme="day"] .settings__button{
+    color: #53a6cb;
+}
+
+html[data-theme="night"] .settings__button{
+    color: #243f4d;
 }
 
 html[data-theme="day"] .weather,
@@ -38,6 +53,21 @@ html[data-theme="night"] .weather {
     justify-content: center;
 }
 
+.navigation{
+    &__icon{
+        position: fixed;
+        z-index: 1;
+        top: 20px;
+        right: 20px;
+        max-width: 10%;
+    }
+    &__title{
+        text-align: center;
+        font-size: 2em;
+        margin: $padding;
+    }
+}
+
 .current {
     text-align: center;
     margin-bottom: $padding * 2;
@@ -58,14 +88,13 @@ html[data-theme="night"] .weather {
     }
 
     &__icon {
-        margin-top: $padding;
+        margin-top: $padding / 2;
+        margin-right: $padding;
         margin-bottom: $padding;
         width: $icon-size;
         height: $icon-size;
     }
 }
-
-
 
 .details {
     &__row {
@@ -85,6 +114,46 @@ html[data-theme="night"] .weather {
     &__value {
         font-size: 1.5em;
     }
+}
+
+.settings{
+    &__form{
+        display: flex;
+        justify-content: center;
+    }
+    &__input{
+        font-size: large;
+        background: transparent;
+        outline: none;
+        border: none;
+        padding: 5px;
+        border-bottom: 2px solid #fff;
+        min-width: 30%;
+    }
+    &__button{
+        font-size: large;
+        background-color: #fff;
+        padding: 0 15px 0 15px;
+        border-radius: 0px;
+        margin-left: -5px;
+        outline: none;
+        cursor: pointer;
+        border-bottom: 2px solid #fff;
+        min-width: 10%;
+    }
+}
+
+.list{
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    padding: 5px;
+    margin: 15px 15% 15px 15%;
+    border: 2px solid #fff;
+}
+
+::placeholder{
+    color: #fff;
 }
 
 html.transition,
