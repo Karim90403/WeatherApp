@@ -7,9 +7,13 @@
     <input v-model="newSity" class="settings__input" type="text" name="newSity" placeholder="New Sity" required>
     <button class="settings__button">Add</button>    
   </form>
-  <div v-for='sity in sityArray' :key="sity.id" class="list">
-    {{sity.name}}
-    <div @click="removeSity(sity)">X</div>
+  <div class="list" @drop="onDrop(event, 1)" @dragenter.prevent @dragover.prevent>
+    <div v-for='sity in sityArray' :key="sity.id" class="list__element" 
+    draggable="true" @dragstart="startDrag($event, sity)">
+      <div class="list__burger-button"></div>
+      <div class="list__text">{{sity.name}}</div>
+      <div @click="removeSity(sity)" class="list__dismiss-button">X</div>
+    </div>
   </div>
 </div>
 <sity v-else
@@ -19,7 +23,8 @@
 </template>
 
 <script>
-import sity from './components/sity.vue';
+import draggable from 'vuedraggable'
+import sity from './components/sity.vue'
 let id = 0
 export default{
   data() {
@@ -27,13 +32,14 @@ export default{
       isInSettings: false,
       newSity: '',
       sityArray: [
-        {id: id++, name: 'Moscow'},
-        {id: id++, name: 'Berlin'},
-        {id: id++, name: 'London'}
-      ]
+        {id: id++, name: 'Moscow', list: 1},
+        {id: id++, name: 'Berlin', list: 1},
+        {id: id++, name: 'London', list: 1}
+      ],
     }
   },
   components: {
+    draggable,
     sity
   },
   methods: {
@@ -46,6 +52,20 @@ export default{
     },
     toggleNav(){
       this.isInSettings = !this.isInSettings
+    },
+    startDrag(event, sity){
+      console.log(sity)
+      event.dataTransfer.dropEffect = 'move'
+      event.dataTransfer.effectAllowed = 'move'
+      event.dataTransfer.setData('sityID', sity.id)
+      console.log(event.dataTransfer.getData('sityID'))
+    },
+    onDrop(event, list){
+      console.log(list)
+      const sityID = event.dataTransfer.getData('sityID')
+
+      const sity = sityArray.vale.find((sity) => sity.id == sityID)
+      sity.list = list
     }
   }
 }

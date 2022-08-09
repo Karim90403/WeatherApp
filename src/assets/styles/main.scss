@@ -144,12 +144,44 @@ html[data-theme="night"] .weather {
 }
 
 .list{
+    border: 1px inset #fff;
     display: flex;
-    justify-content: space-between;
-    font-size: large;
-    padding: 5px;
-    margin: 15px 15% 15px 15%;
-    border: 2px solid #fff;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px;
+    &__element{
+        display: flex;
+        justify-content: space-between;
+        font-size: large;
+        padding: 5px;
+        margin: 15px;
+        border: 2px solid #fff;
+    }
+    
+
+    &__burger-button,
+    &__burger-button::before,
+    &__burger-button::after {
+        display: block;
+        background-color: #fff;
+        margin-top: 7px;
+        height: 2px;
+        width: 30px;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+    
+    &__burger-button::before {
+        content: '';
+        position: absolute;
+        margin-top: -6px;
+    }
+    
+    &__burger-button::after {
+        content: '';
+        position: absolute;
+        margin-top: 6px;
+    }
 }
 
 ::placeholder{
@@ -228,3 +260,4 @@ html.transition * {
 .icon__50n {
     background-image: url("../images/50d.png");
 }
+

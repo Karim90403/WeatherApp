@@ -179,12 +179,38 @@ html[data-theme=night] .weather {
 }
 
 .list {
+  border: 1px inset #fff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px;
+}
+.list__element {
   display: flex;
   justify-content: space-between;
   font-size: large;
   padding: 5px;
-  margin: 15px 15% 15px 15%;
+  margin: 15px;
   border: 2px solid #fff;
+}
+.list__burger-button, .list__burger-button::before, .list__burger-button::after {
+  display: block;
+  background-color: #fff;
+  margin-top: 7px;
+  height: 2px;
+  width: 30px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.list__burger-button::before {
+  content: "";
+  position: absolute;
+  margin-top: -6px;
+}
+.list__burger-button::after {
+  content: "";
+  position: absolute;
+  margin-top: 6px;
 }
 
 ::-moz-placeholder {
