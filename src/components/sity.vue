@@ -33,13 +33,9 @@
 </template>
 
 <script>
+  import {getDetails, getTemperature, renderDayOrNight} from '../functions.js';
   import axios from 'axios';
-  // let url = `https://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=caac442a9f6f6b2f02fa20c006534b5d`;
-  const temperatureUnit = '˚C';
-  const visibilityUnit = 'km';
-  const humidityUnit = '%';
-  const pressureUnit = 'hPa';
-  const windUnit = 'm/s';
+
   export default {
     props:['sity'],
     data() {
@@ -58,21 +54,6 @@
         }
       };
     },
-    methods: {
-        async getWeather(sity) {
-          try {
-            url = `https://api.openweathermap.org/data/2.5/weather?q=${sity}&appid=caac442a9f6f6b2f02fa20c006534b5d`;
-            let res = await axios.get(url)
-            this.cityName = res.data.name;
-            this.countryName = res.data.sys.country;
-            this.description = res.data.weather[0].description;
-            this.feelslike = getTemperature(res.data.main.feels_like)
-            this.temperature = getTemperature(res.data.main.temp)
-            this.icon = res.data.weather[0].icon;
-            this.details = getDetails(res.data);
-        } catch (err) { console.log(err); }
-      },
-    },
     async mounted() {
       try {
         let url = `https://api.openweathermap.org/data/2.5/weather?q=${this.sity}&appid=caac442a9f6f6b2f02fa20c006534b5d`;
@@ -88,54 +69,4 @@
       } catch (err) { console.log(err); }
     }
   };
-
-function getDetails(data) {
-let item = data;
-let pressure = getValueWithUnit(item.main.pressure, pressureUnit);
-let humidity = getValueWithUnit(item.main.humidity, humidityUnit);
-let visibility = getVisibility(item.visibility);
-let wind = getValueWithUnit(item.wind.speed, windUnit);
-
-return {
-  pressure: pressure,
-  humidity: humidity,
-  visibility: visibility,
-  wind: wind
-}
-}
-
-function getValueWithUnit(value, unit) {
-return `${value}${unit}`;
-}
-
-function getTemperature(value) {
-var roundedValue = Math.round(value-273.15);
-return getValueWithUnit(roundedValue, temperatureUnit);
-}
-
-function getVisibility(value) {
-var roundedValue = Math.round(value/1000);
-return getValueWithUnit(roundedValue, visibilityUnit);
-}
-
-function isDay(data) {
-let sunrise = data.sys.sunrise * 1000;
-let sunset = data.sys.sunset * 1000;
-
-let now = Date.now();
-return (now > sunrise && now < sunset);
-}
-
-function renderDayOrNight(data) {
-let attrName = isDay(data) ? 'day':'night';
-transition();
-document.documentElement.setAttribute('data-theme', attrName);
-}
-function transition() {
-document.documentElement.classList.add('transition');
-setTimeout(function() {
-  document.documentElement.classList.remove('transition');
-}, 4000)
-}
-
 </script>

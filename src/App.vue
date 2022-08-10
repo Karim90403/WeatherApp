@@ -7,14 +7,28 @@
     <input v-model="newSity" class="settings__input" type="text" name="newSity" placeholder="New Sity" required>
     <button class="settings__button">Add</button>    
   </form>
-  <div class="list" @drop="onDrop(event, 1)" @dragenter.prevent @dragover.prevent>
+  <!-- <div class="list" @drop="onDrop(event, 1)" @dragenter.prevent @dragover.prevent>
     <div v-for='sity in sityArray' :key="sity.id" class="list__element" 
     draggable="true" @dragstart="startDrag($event, sity)">
       <div class="list__burger-button"></div>
       <div class="list__text">{{sity.name}}</div>
       <div @click="removeSity(sity)" class="list__dismiss-button">X</div>
     </div>
-  </div>
+  </div> -->
+  <draggable 
+    v-model="sityArray" 
+    :list="sityArray"
+    group="{ name: 'people', pull: 'clone', put: false }" 
+    @start="drag=true" 
+    @end="drag=false" 
+    item-key="id">
+    <div v-for='sity in sityArray' :key="sity.id" class="list__element" 
+    draggable="true" @dragstart="startDrag($event, sity)">
+      <div class="list__burger-button"></div>
+      <div class="list__text">{{sity.name}}</div>
+      <div @click="removeSity(sity)" class="list__dismiss-button">X</div>
+    </div>
+  </draggable>
 </div>
 <sity v-else
   v-for='sity in sityArray' :key="sity.id"
@@ -29,12 +43,16 @@ let id = 0
 export default{
   data() {
     return {
+      name: "clone",
+      display: "Clone",
+      order: 2,
+      drag: false,
       isInSettings: false,
       newSity: '',
       sityArray: [
-        {id: id++, name: 'Moscow', list: 1},
-        {id: id++, name: 'Berlin', list: 1},
-        {id: id++, name: 'London', list: 1}
+        {id: 1, name: 'Moscow'},
+        {id: 2, name: 'Berlin'},
+        {id: 3, name: 'London'}
       ],
     }
   },
