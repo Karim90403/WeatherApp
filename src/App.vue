@@ -1,91 +1,90 @@
 <template>
-<img v-if="isInSettings" src="./components/icons/back.png" alt="Settings" class="navigation__icon" @click="toggleNav"/>
-<img v-else src="./components/icons/settings.png" alt="Settings" class="navigation__icon" @click="toggleNav"/>
-<div v-if="isInSettings"> 
-  <h1 class="navigation__title">Settings</h1>
-  <form @submit.prevent="addSity" class="settings__form">
-    <input v-model="newSity" class="settings__input" type="text" name="newSity" placeholder="New Sity" required>
-    <button class="settings__button">Add</button>    
-  </form>
-  <!-- <div class="list" @drop="onDrop(event, 1)" @dragenter.prevent @dragover.prevent>
-    <div v-for='sity in sityArray' :key="sity.id" class="list__element" 
-    draggable="true" @dragstart="startDrag($event, sity)">
-      <div class="list__burger-button"></div>
-      <div class="list__text">{{sity.name}}</div>
-      <div @click="removeSity(sity)" class="list__dismiss-button">X</div>
-    </div>
-  </div> -->
-  <draggable 
-    v-model="sityArray" 
-    :list="sityArray"
-    group="{ name: 'people', pull: 'clone', put: false }" 
-    @start="drag=true" 
-    @end="drag=false" 
-    item-key="id">
-    <div v-for='sity in sityArray' :key="sity.id" class="list__element" 
-    draggable="true" @dragstart="startDrag($event, sity)">
-      <div class="list__burger-button"></div>
-      <div class="list__text">{{sity.name}}</div>
-      <div @click="removeSity(sity)" class="list__dismiss-button">X</div>
-    </div>
-  </draggable>
-</div>
-<sity v-else
-  v-for='sity in sityArray' :key="sity.id"
-  v-bind:sity="sity.name"
-></sity>
+  <img
+    v-if="isInSettings"
+    src="./components/icons/back.png"
+    alt="Settings"
+    class="navigation__icon"
+    @click="toggleNav"
+  />
+  <img
+    v-else
+    src="./components/icons/settings.png"
+    alt="Settings"
+    class="navigation__icon"
+    @click="toggleNav"
+  />
+  <div v-if="isInSettings">
+    <h1 class="navigation__title">Settings</h1>
+    <form @submit.prevent="addCity" class="settings__form">
+      <input
+        v-model="newCity"
+        class="settings__input"
+        type="text"
+        name="newCity"
+        placeholder="New City"
+        required
+      />
+      <button class="settings__button">Add</button>
+    </form>
+    <draggable
+      v-model="cityArray"
+      class="list"
+    >
+      <template
+        v-for="city in cityArray"
+        #item="city"
+        :key="city.id"
+      >
+        <div class="list__element">
+          <div class="list__burger-button"></div>
+          <p class="list__text">{{ city.element.name }}</p>
+          <div @click="removeCity(city)" class="list__dismiss-button">X</div>
+        </div>
+      </template>
+    </draggable>
+  </div>
+  <city
+    v-else
+    v-for="city in cityArray"
+    :key="city.id"
+    v-bind:city="city.name"
+  ></city>
 </template>
 
 <script>
-import draggable from 'vuedraggable'
-import sity from './components/sity.vue'
-let id = 0
-export default{
+import draggable from "vuedraggable";
+import city from "./components/city.vue";
+let id = 0;
+export default {
   data() {
+    let id = 0
     return {
-      name: "clone",
-      display: "Clone",
-      order: 2,
       drag: false,
       isInSettings: false,
-      newSity: '',
-      sityArray: [
-        {id: 1, name: 'Moscow'},
-        {id: 2, name: 'Berlin'},
-        {id: 3, name: 'London'}
+      newCity: "",
+      cityArray: [
+        { id: id++, name: "Moscow" },
+        { id: id++, name: "Berlin" },
+        { id: id++, name: "London" },
       ],
-    }
+    };
   },
   components: {
     draggable,
-    sity
+    city,
   },
   methods: {
-    addSity() {
-      this.sityArray.push({ id: id++, name: this.newSity })
-      this.newSity = ''
+    addCity() {
+      this.cityArray.push({ id: id++, name: this.newCity });
+      this.newCity = "";
     },
-    removeSity(sity) {
-      this.sityArray = this.sityArray.filter((t) => t !== sity)
+    removeCity(city) {
+      this.cityArray = this.cityArray.filter((t) => t !== city);
     },
-    toggleNav(){
-      this.isInSettings = !this.isInSettings
-    },
-    startDrag(event, sity){
-      console.log(sity)
-      event.dataTransfer.dropEffect = 'move'
-      event.dataTransfer.effectAllowed = 'move'
-      event.dataTransfer.setData('sityID', sity.id)
-      console.log(event.dataTransfer.getData('sityID'))
-    },
-    onDrop(event, list){
-      console.log(list)
-      const sityID = event.dataTransfer.getData('sityID')
-
-      const sity = sityArray.vale.find((sity) => sity.id == sityID)
-      sity.list = list
+    toggleNav() {
+      this.isInSettings = !this.isInSettings;
     }
-  }
-}
+  },
+};
 </script>
 

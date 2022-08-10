@@ -128,7 +128,7 @@ html[data-theme="night"] .weather {
         border: none;
         padding: 5px;
         border-bottom: 2px solid #fff;
-        min-width: 30%;
+        min-width: 30vw;
     }
     &__button{
         font-size: large;
@@ -153,8 +153,8 @@ html[data-theme="night"] .weather {
         display: flex;
         justify-content: space-between;
         font-size: large;
-        padding: 5px;
-        margin: 15px;
+        padding: .5em;
+        margin: 1em;
         border: 2px solid #fff;
     }
     

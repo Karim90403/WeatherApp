@@ -37,7 +37,7 @@
   import axios from 'axios';
 
   export default {
-    props:['sity'],
+    props:['city'],
     data() {
       return {
         cityName: '--',
@@ -56,7 +56,7 @@
     },
     async mounted() {
       try {
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${this.sity}&appid=caac442a9f6f6b2f02fa20c006534b5d`;
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=caac442a9f6f6b2f02fa20c006534b5d`;
         let res = await axios.get(url)
         this.cityName = res.data.name;
         this.countryName = res.data.sys.country;

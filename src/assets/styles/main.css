@@ -164,7 +164,7 @@ html[data-theme=night] .weather {
   border: none;
   padding: 5px;
   border-bottom: 2px solid #fff;
-  min-width: 30%;
+  min-width: 30vw;
 }
 .settings__button {
   font-size: large;
@@ -189,8 +189,8 @@ html[data-theme=night] .weather {
   display: flex;
   justify-content: space-between;
   font-size: large;
-  padding: 5px;
-  margin: 15px;
+  padding: 0.5em;
+  margin: 1em;
   border: 2px solid #fff;
 }
 .list__burger-button, .list__burger-button::before, .list__burger-button::after {
