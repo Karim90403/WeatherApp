@@ -144,43 +144,63 @@ html[data-theme="night"] .weather {
 }
 
 .list{
-    border: 1px inset #fff;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    margin: 20px;
-    &__element{
+
+    &__part1{
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+    }
+    
+    &__part2{
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__item{
+        display: flex;
         font-size: large;
         padding: .5em;
-        margin: 1em;
         border: 2px solid #fff;
     }
     
+    &__burger-button{
+        cursor: pointer;
+        margin-right: 1em;
+    }
 
-    &__burger-button,
-    &__burger-button::before,
-    &__burger-button::after {
+    &__burger,
+    &__burger::before,
+    &__burger::after {
         display: block;
         background-color: #fff;
         margin-top: 7px;
         height: 2px;
         width: 30px;
         border-radius: 2px;
-        cursor: pointer;
     }
     
-    &__burger-button::before {
+    &__burger::before {
         content: '';
         position: absolute;
         margin-top: -6px;
     }
     
-    &__burger-button::after {
+    &__burger::after {
         content: '';
         position: absolute;
         margin-top: 6px;
+    }
+
+    &__text{
+    }
+
+    &__dismiss-button{
+        font-size: large;
+        padding: .5em;
+        border: 2px solid #fff;
+        cursor: pointer;
     }
 }
 

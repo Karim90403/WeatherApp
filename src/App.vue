@@ -26,22 +26,28 @@
       />
       <button class="settings__button">Add</button>
     </form>
-    <draggable
-      v-model="cityArray"
-      class="list"
-    >
-      <template
-        v-for="city in cityArray"
-        #item="city"
-        :key="city.id"
+    <div class="list">
+      <draggable
+        v-model="cityArray"
+        handle=".list__burger-button"
+        item-key="id"
+        class="list__part1"
+        
       >
-        <div class="list__element">
-          <div class="list__burger-button"></div>
-          <p class="list__text">{{ city.element.name }}</p>
-          <div @click="removeCity(city)" class="list__dismiss-button">X</div>
-        </div>
-      </template>
-    </draggable>
+        <template
+          #item="city"
+          :key="city.id"
+        >
+          <div class="list__item">
+            <div class="list__burger-button"><div class="list__burger"></div></div>
+            <p class="list__text">{{ city.element.name }}</p>
+          </div>
+        </template>
+      </draggable>
+      <div class="list__part2">
+        <div v-for="city in cityArray" @click="removeCity(city)" class="list__dismiss-button">X</div>
+      </div>
+    </div>
   </div>
   <city
     v-else
@@ -64,8 +70,6 @@ export default {
       newCity: "",
       cityArray: [
         { id: id++, name: "Moscow" },
-        { id: id++, name: "Berlin" },
-        { id: id++, name: "London" },
       ],
     };
   },
@@ -77,13 +81,32 @@ export default {
     addCity() {
       this.cityArray.push({ id: id++, name: this.newCity });
       this.newCity = "";
+      localStorage.setItem("cityArray", JSON.stringify(this.cityArray))
     },
     removeCity(city) {
       this.cityArray = this.cityArray.filter((t) => t !== city);
+      localStorage.setItem("cityArray", JSON.stringify(this.cityArray))
     },
     toggleNav() {
       this.isInSettings = !this.isInSettings;
     }
+  },
+  created() {
+    this.$getLocation()
+      .then((coordinates) => {
+        console.log(coordinates);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  // mounted(){
+  //   if (localStorage.getItem("cityArray").length > 0){
+  //     this.cityArray = JSON.parse(localStorage.getItem("cityArray"))
+  //   }
+  // },
+  unmounted(){
+    localStorage.setItem("cityArray", JSON.stringify(this.cityArray))
   },
 };
 </script>

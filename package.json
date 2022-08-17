@@ -10,6 +10,7 @@
     "axios": "^0.27.2",
     "scss": "^0.2.4",
     "vue": "^3.2.37",
+    "vue3-geolocation": "^1.0.0",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
